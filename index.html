@@ -25,6 +25,9 @@
             </p>
         </header>
 
+        <!-- Feedback Message Area -->
+        <div id="formFeedback" class="form-feedback hidden"></div>
+
         <!-- Form submits directly to FormSubmit to guarantee delivery -->
         <form class="application-form"
             action="https://formsubmit.co/mysterious95052@gmail.com"
@@ -185,14 +188,98 @@
                 <p class="final-note">&ldquo;Only serious applicants will be selected. Shortlisted candidates will be
                     contacted.&rdquo;</p>
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    <span>Submit Application</span>
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <span id="submitText">Submit Application</span>
+                    <svg id="submitIcon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <!-- Spinner for loading state -->
+                    <svg id="loadingIcon" class="hidden animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="32" stroke-dashoffset="0" style="opacity:0.2"/>
+                        <path d="M12 2A10 10 0 0 1 22 12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
                     </svg>
                 </button>
             </div>
         </form>
     </div>
+
+    <!-- JavaScript for Handling Form Submission Dynamically -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.application-form');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitIcon = document.getElementById('submitIcon');
+            const loadingIcon = document.getElementById('loadingIcon');
+            const feedback = document.getElementById('formFeedback');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // 1. Loading State
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.cursor = 'not-allowed';
+                submitText.textContent = 'Submitting...';
+                if (submitIcon) submitIcon.classList.add('hidden');
+                if (loadingIcon) loadingIcon.classList.remove('hidden');
+                
+                feedback.className = 'form-feedback hidden';
+                feedback.innerHTML = '';
+
+                try {
+                    const formData = new FormData(form);
+                    
+                    // 2. Perform the fetch request
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // 3. Show Success Message
+                        feedback.className = 'form-feedback success';
+                        feedback.innerHTML = `
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <strong>Success!</strong>
+                                <p>Your form has been submitted successfully. Our team will contact you within 24 hours.</p>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (error) {
+                    // Show Error Message
+                    feedback.className = 'form-feedback error';
+                    feedback.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div>
+                            <strong>Oops!</strong>
+                            <p>Something went wrong with the submission. Please try again.</p>
+                        </div>
+                    `;
+                } finally {
+                    // 4. Reset Button State (Do NOT reset form)
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                    submitText.textContent = 'Submit Application';
+                    if (loadingIcon) loadingIcon.classList.add('hidden');
+                    if (submitIcon) submitIcon.classList.remove('hidden');
+
+                    // Scroll to the feedback message smoothly
+                    feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -406,3 +406,54 @@ body {
         gap: 1.2rem;
     }
 }
+
+/* === Form Feedback & Utility Styles === */
+.hidden {
+    display: none !important;
+}
+
+.form-feedback {
+    padding: 1.5rem 2rem;
+    margin-bottom: 2.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.form-feedback svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.form-feedback div p {
+    font-size: 1.05rem;
+    margin: 0;
+    line-height: 1.5;
+    color: currentColor;
+    opacity: 0.9;
+}
+
+.form-feedback div strong {
+    display: block;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+}
+
+.form-feedback.success {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.1);
+}
+
+.form-feedback.error {
+    background: rgba(231, 76, 60, 0.1);
+    border-color: rgba(231, 76, 60, 0.3);
+    color: #e74c3c;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.1);
+}
