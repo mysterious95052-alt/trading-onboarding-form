@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Market Vision | Team Application</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Background Glow Effects -->
     <div class="background-effects">
@@ -18,24 +20,24 @@
             <h1 class="logo">Market Vision</h1>
             <h2>Team Application</h2>
             <p class="description">
-                &ldquo;Market Vision is building a focused team of individuals who are serious about growth, skills, and financial development.&rdquo;
+                &ldquo;Market Vision is building a focused team of individuals who are serious about growth, skills, and
+                financial development.&rdquo;
             </p>
         </header>
 
         <!-- Form submits directly to Google Apps Script via hidden iframe -->
         <form class="application-form"
-              action="https://script.google.com/macros/s/AKfycbwIXwZjrL18BQxhE8ZKe2QOg2cVr0df8AHbI1mVD8c42zX-Apy8wNcAVFDBEFRAuLQu/exec"
-              method="POST"
-              target="hidden_iframe">
-            
+            action="https://script.google.com/macros/s/AKfycbwIXwZjrL18BQxhE8ZKe2QOg2cVr0df8AHbI1mVD8c42zX-Apy8wNcAVFDBEFRAuLQu/exec"
+            method="POST" target="_blank">
+
             <div class="form-section">
                 <h3>1. Basic Information</h3>
-                
+
                 <div class="input-group">
                     <input type="text" id="fullName" name="fullName" required placeholder=" ">
                     <label for="fullName">Full Name *</label>
                 </div>
-                
+
                 <div class="row">
                     <div class="input-group half">
                         <input type="number" id="age" name="age" required placeholder=" ">
@@ -61,7 +63,7 @@
 
             <div class="form-section">
                 <h3>2. Skills &amp; Experience</h3>
-                
+
                 <div class="input-group">
                     <textarea id="skills" name="skills" rows="3" required placeholder=" "></textarea>
                     <label for="skills">What skills do you have? *</label>
@@ -112,7 +114,7 @@
 
             <div class="form-section">
                 <h3>4. Work Commitment</h3>
-                
+
                 <div class="input-group">
                     <input type="number" id="hours" name="hours" required placeholder=" ">
                     <label for="hours">How many hours can you dedicate daily? *</label>
@@ -135,7 +137,7 @@
 
             <div class="form-section">
                 <h3>5. Mindset &amp; Intent</h3>
-                
+
                 <div class="input-group">
                     <textarea id="whyJoin" name="whyJoin" rows="3" required placeholder=" "></textarea>
                     <label for="whyJoin">Why do you want to join Market Vision? *</label>
@@ -149,7 +151,7 @@
 
             <div class="form-section">
                 <h3>6. Portfolio / Proof (Optional)</h3>
-                
+
                 <div class="input-group">
                     <input type="text" id="portfolio" name="portfolio" placeholder=" ">
                     <label for="portfolio">Links or ID (Google Drive / Instagram / Website)</label>
@@ -158,7 +160,7 @@
 
             <div class="form-section">
                 <h3>7. Final Confirmation</h3>
-                
+
                 <p class="section-subtitle">Are you serious about learning, working, and growing with a team?</p>
                 <div class="radio-group horizontal">
                     <label class="radio-label">
@@ -175,11 +177,13 @@
             </div>
 
             <div class="form-footer">
-                <p class="final-note">&ldquo;Only serious applicants will be selected. Shortlisted candidates will be contacted.&rdquo;</p>
+                <p class="final-note">&ldquo;Only serious applicants will be selected. Shortlisted candidates will be
+                    contacted.&rdquo;</p>
                 <button type="submit" class="submit-btn" id="submitBtn">
                     <span>Submit Application</span>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </button>
             </div>
@@ -193,18 +197,18 @@
         const form = document.querySelector('.application-form');
         const submitBtn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', function() {
+        form.addEventListener('submit', function () {
             const originalBtnContent = submitBtn.innerHTML;
             submitBtn.innerHTML = '<span>Submitting...</span>';
             submitBtn.style.opacity = '0.8';
             submitBtn.style.pointerEvents = 'none';
 
-            setTimeout(function() {
+            setTimeout(function () {
                 submitBtn.innerHTML = '<span>Application Sent! &#10003;</span>';
                 submitBtn.style.backgroundColor = '#00c853';
                 form.reset();
 
-                setTimeout(function() {
+                setTimeout(function () {
                     submitBtn.innerHTML = originalBtnContent;
                     submitBtn.style.backgroundColor = '';
                     submitBtn.style.opacity = '1';
@@ -214,4 +218,5 @@
         });
     </script>
 </body>
+
 </html>
