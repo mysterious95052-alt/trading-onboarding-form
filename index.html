@@ -27,8 +27,8 @@
 
         <!-- Form submits directly to Google Apps Script via hidden iframe -->
         <form class="application-form"
-            action="https://script.google.com/macros/s/AKfycbwIXwZjrL18BQxhE8ZKe2QOg2cVr0df8AHbI1mVD8c42zX-Apy8wNcAVFDBEFRAuLQu/exec"
-            method="POST" target="hidden_iframe">
+            action="https://script.google.com/macros/s/AKfycbzUKjttIo___aUXNaCh1-WbsXidX-M2kH6HM1y4-o3RY_9Y65lVzXwgHg8buXAj929n2g/exec"
+            method="POST" target="_blank">
 
             <div class="form-section">
                 <h3>1. Basic Information</h3>
@@ -191,54 +191,12 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzUKjttIo___aUXNaCh1-WbsXidX-M2kH6HM1y4-o3RY_9Y65lVzXwgHg8buXAj929n2g/exec';
         const form = document.querySelector('.application-form');
         const submitBtn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-
-            // Store original button text
-            const originalBtnContent = submitBtn.innerHTML;
-
-            // Show loading state
+        form.addEventListener('submit', () => {
             submitBtn.innerHTML = '<span>Submitting... Please wait</span>';
             submitBtn.style.opacity = '0.8';
-            submitBtn.style.pointerEvents = 'none';
-
-            // Send actual data natively as URL-encoded so Google Apps Script understands it
-            let formData = new FormData(form);
-            let urlEncodedData = new URLSearchParams(formData).toString();
-            
-            fetch(scriptURL, { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: urlEncodedData,
-                mode: 'no-cors' // Allows sending securely across domains without CORS block
-            })
-            .then(response => {
-                submitBtn.innerHTML = '<span>Application Sent! &#10003;</span>';
-                submitBtn.style.backgroundColor = '#00c853';
-                form.reset();
-
-                setTimeout(function () {
-                    submitBtn.innerHTML = originalBtnContent;
-                    submitBtn.style.backgroundColor = '';
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.pointerEvents = 'auto';
-                }, 4000);
-            })
-            .catch(error => {
-                submitBtn.innerHTML = '<span>Error! Try Again</span>';
-                submitBtn.style.backgroundColor = 'red';
-                
-                setTimeout(function () {
-                    submitBtn.innerHTML = originalBtnContent;
-                    submitBtn.style.backgroundColor = '';
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.pointerEvents = 'auto';
-                }, 4000);
-            });
         });
     </script>
 </body>
