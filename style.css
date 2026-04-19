@@ -192,10 +192,12 @@ body {
     flex: 1;
 }
 
-/* Floating Label Inputs */
+/* Static Label Inputs (Fixes overlap issues) */
 .input-group {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 1.8rem;
     position: relative;
-    margin-bottom: 2rem;
 }
 
 .input-group:last-child {
@@ -207,10 +209,11 @@ body {
     width: 100%;
     background: var(--input-bg);
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 1.8rem 1.2rem 0.6rem;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
     color: var(--text-main);
     font-size: 1.05rem;
+    line-height: 1.5;
     outline: none;
     transition: all 0.3s ease;
 }
@@ -223,38 +226,24 @@ body {
 .input-group input:focus,
 .input-group textarea:focus {
     border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.03);
-    box-shadow: 0 0 0 1px var(--accent);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 4px 15px rgba(255, 90, 0, 0.1);
 }
 
 .input-group label {
-    position: absolute;
-    left: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: 0.85rem;
     color: var(--text-muted);
-    font-size: 1.05rem;
-    pointer-events: none;
-    transition: all 0.2s ease;
-}
-
-.input-group textarea + label {
-    top: 1.2rem;
-    transform: none;
-}
-
-/* When input is focused or has content */
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label,
-.input-group textarea:focus + label,
-.input-group textarea:not(:placeholder-shown) + label {
-    top: 0.5rem;
-    transform: translateY(0);
-    font-size: 0.75rem;
-    color: var(--accent);
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 0.6rem;
+    transition: color 0.3s ease;
+    align-self: flex-start;
+}
+
+.input-group input:focus + label,
+.input-group textarea:focus + label {
+    color: var(--accent);
 }
 
 /* Custom Radios */
@@ -472,12 +461,11 @@ body {
     .input-group input,
     .input-group textarea {
         font-size: 1rem; /* Base 16px to prevent iOS auto-zoom */
-        padding: 1.8rem 1.2rem 0.6rem; 
+        padding: 1rem 1.2rem; 
     }
 
     .input-group label {
-        left: 1.2rem;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
 
     .radio-group {
