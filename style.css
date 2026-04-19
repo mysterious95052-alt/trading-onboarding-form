@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #050505;
+    --container-bg: rgba(15, 15, 15, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-main: #FFFFFF;
+    --text-muted: #999999;
+    --accent: #FF5A00;
+    --accent-hover: #FF7A33;
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --input-bg: rgba(255, 255, 255, 0.02);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    /* Drawing the subtle grid lines like in the inference UI */
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.9;
+    animation: float 20s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    top: -10%;
+    right: -10%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 90, 0, 0.18) 0%, rgba(5, 5, 5, 0) 70%);
+}
+
+.orb-2 {
+    bottom: -20%;
+    left: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255, 60, 0, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    transform-origin: center;
+    animation: spin 1s linear infinite;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: var(--container-bg);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 4rem;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);
+    z-index: 1;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.logo {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo::before, .logo::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.form-header h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #b3b3b3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.description {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+.form-section {
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--glass-border);
+    padding: 3rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-section:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.form-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+.form-section h3::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.half {
+    flex: 1;
+}
+
+/* Floating Label Inputs */
+.input-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.8rem 1.2rem 0.6rem;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+.input-group label {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.input-group textarea + label {
+    top: 1.2rem;
+    transform: none;
+}
+
+/* When input is focused or has content */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+    top: 0.5rem;
+    transform: translateY(0);
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Custom Radios */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.radio-group.horizontal {
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-main);
+    position: relative;
+    padding-left: 2.2rem;
+    transition: color 0.2s;
+    user-select: none;
+}
+
+.radio-label:hover {
+    color: #fff;
+}
+
+.radio-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.radio-label:hover .custom-radio {
+    border-color: var(--accent);
+}
+
+.radio-label input:checked ~ .custom-radio {
+    border-color: var(--accent);
+    background: transparent;
+}
+
+.radio-label input:checked ~ .custom-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+}
+
+.form-footer {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.final-note {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    border-left: 2px solid var(--accent);
+}
+
+.submit-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 90, 0, 0.4);
+}
+
+.submit-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 90, 0, 0.6);
+}
+
+.submit-btn:hover svg:not(.animate-spin) {
+    transform: translateX(5px);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 2rem 1rem;
+    }
+
+    .container {
+        padding: 2.5rem;
+        border-radius: 12px;
+    }
+    
+    .row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .form-header h2 {
+        font-size: 2rem;
+    }
+
+    .form-header {
+        margin-bottom: 2.5rem;
+    }
+    
+    .form-section {
+        padding: 2rem;
+    }
+
+    .radio-group.horizontal {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+}
