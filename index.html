@@ -206,19 +206,20 @@
             submitBtn.style.opacity = '0.8';
             submitBtn.style.pointerEvents = 'none';
 
-            // Send actual data manually tracking it
+            // Send actual data natively as URL-encoded so Google Apps Script understands it
             let formData = new FormData(form);
+            let urlEncodedData = new URLSearchParams(formData).toString();
             
             fetch(scriptURL, { 
                 method: 'POST', 
-                body: formData,
-                mode: 'no-cors' // This avoids frontend CORS block
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: urlEncodedData,
+                mode: 'no-cors' // Allows sending securely across domains without CORS block
             })
             .then(response => {
                 submitBtn.innerHTML = '<span>Application Sent! &#10003;</span>';
                 submitBtn.style.backgroundColor = '#00c853';
                 form.reset();
-                alert("SUCCESS! The form has submitted its data.");
 
                 setTimeout(function () {
                     submitBtn.innerHTML = originalBtnContent;
@@ -230,7 +231,6 @@
             .catch(error => {
                 submitBtn.innerHTML = '<span>Error! Try Again</span>';
                 submitBtn.style.backgroundColor = 'red';
-                alert("ERROR OCURRED: " + error.message + "\n\nMake sure your Google Apps Script is deployed with 'Who has access' set to 'Anyone'");
                 
                 setTimeout(function () {
                     submitBtn.innerHTML = originalBtnContent;
