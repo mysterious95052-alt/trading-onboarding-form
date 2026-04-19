@@ -190,23 +190,35 @@
         </form>
     </div>
 
-    <!-- Hidden iframe receives the Google Apps Script response -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
     <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwIXwZjrL18BQxhE8ZKe2QOg2cVr0df8AHbI1mVD8c42zX-Apy8wNcAVFDBEFRAuLQu/exec';
         const form = document.querySelector('.application-form');
         const submitBtn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', function () {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // Store original button text
             const originalBtnContent = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span>Submitting...</span>';
+
+            // Show loading state
+            submitBtn.innerHTML = '<span>Submitting... Please wait</span>';
             submitBtn.style.opacity = '0.8';
             submitBtn.style.pointerEvents = 'none';
 
-            setTimeout(function () {
+            // Send actual data manually tracking it
+            let formData = new FormData(form);
+            
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData,
+                mode: 'no-cors' // This avoids frontend CORS block
+            })
+            .then(response => {
                 submitBtn.innerHTML = '<span>Application Sent! &#10003;</span>';
                 submitBtn.style.backgroundColor = '#00c853';
                 form.reset();
+                alert("SUCCESS! The form has submitted its data.");
 
                 setTimeout(function () {
                     submitBtn.innerHTML = originalBtnContent;
@@ -214,9 +226,20 @@
                     submitBtn.style.opacity = '1';
                     submitBtn.style.pointerEvents = 'auto';
                 }, 4000);
-            }, 3000);
+            })
+            .catch(error => {
+                submitBtn.innerHTML = '<span>Error! Try Again</span>';
+                submitBtn.style.backgroundColor = 'red';
+                alert("ERROR OCURRED: " + error.message + "\n\nMake sure your Google Apps Script is deployed with 'Who has access' set to 'Anyone'");
+                
+                setTimeout(function () {
+                    submitBtn.innerHTML = originalBtnContent;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.pointerEvents = 'auto';
+                }, 4000);
+            });
         });
     </script>
 </body>
-
 </html>
