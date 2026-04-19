@@ -23,12 +23,15 @@
                 &ldquo;Market Vision is building a focused team of individuals who are serious about growth, skills, and
                 financial development.&rdquo;
             </p>
-        </header>
-
-        <!-- Form submits directly to Google Apps Script via hidden iframe -->
+        <!-- Form submits directly to FormSubmit to guarantee delivery -->
         <form class="application-form"
-            action="https://script.google.com/macros/s/AKfycbybzDRsmU9FXwTovVb-wnDXgxbDk-yve7F501THz2mEJ9EnkYqM6FM_9z03csIAnO0RJQ/exec"
-            method="POST" target="hidden_iframe">
+            action="https://formsubmit.co/mysetrious95052@gmail.com"
+            method="POST">
+
+            <!-- FormSubmit Configurations -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Market Vision Team Application!">
+            <input type="hidden" name="_next" value="https://trading-onboarding-form.vercel.app/">
 
             <div class="form-section">
                 <h3>1. Basic Information</h3>
@@ -190,32 +193,14 @@
         </form>
     </div>
 
-    <!-- Hidden iframe silently catches the Google Apps Script response -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
     <script>
         const form = document.querySelector('.application-form');
         const submitBtn = document.getElementById('submitBtn');
-        const originalBtnHTML = submitBtn.innerHTML;
 
         form.addEventListener('submit', () => {
             submitBtn.innerHTML = '<span>Submitting... Please wait</span>';
             submitBtn.style.opacity = '0.8';
             submitBtn.style.pointerEvents = 'none';
-        });
-
-        document.getElementById('hidden_iframe').addEventListener('load', function() {
-            // iframe loaded = Google received the data successfully
-            submitBtn.innerHTML = '<span>Application Sent! &#10003;</span>';
-            submitBtn.style.backgroundColor = '#00c853';
-            submitBtn.style.opacity = '1';
-            form.reset();
-
-            setTimeout(() => {
-                submitBtn.innerHTML = originalBtnHTML;
-                submitBtn.style.backgroundColor = '';
-                submitBtn.style.pointerEvents = 'auto';
-            }, 4000);
         });
     </script>
 </body>
